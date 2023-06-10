@@ -1,5 +1,7 @@
 package pro.sky.cookingappnew.model;
 
+import lombok.AllArgsConstructor;
+
 import java.util.List;
 
 public class Recipe {

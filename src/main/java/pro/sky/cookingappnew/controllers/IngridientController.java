@@ -1,5 +1,7 @@
 package pro.sky.cookingappnew.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import pro.sky.cookingappnew.model.Ingridients;
 import pro.sky.cookingappnew.services.IngridientsService;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +11,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/ingridient")
+@Tag(name = "Ингредиенты")
 
 public class IngridientController {
 
@@ -18,18 +21,21 @@ public class IngridientController {
         this.ingridientsService = ingridientsService;
     }
 
-    @GetMapping("/addnewingridient")//Добавить новый ингредиент
+    @GetMapping("/addnewingridient")
+    @Operation (summary = "Добавить новый ингредиент", description = "Добавить новый ингредиент")
     public Ingridients addNewIngridient(@RequestParam Ingridients ingridient) {
         ingridientsService.addNewIngridient(ingridient);
         return ingridient;
     }
 
-    @GetMapping("/getingridient")//Получить ингредиент по его идентификатору
+    @GetMapping("/getingridient")
+    @Operation (summary = "Получить ингредиент по его идентификатору", description = "Получить ингредиент по его идентификатору")
     public Ingridients getIngridient(@RequestParam Long idIngridient) {
         return ingridientsService.getIngridient(idIngridient);
     }
 
-    @GetMapping//Получить все ингредиенты
+    @GetMapping
+    @Operation (summary = "Получить все ингредиенты", description = "Получить все ингредиенты")
     public ResponseEntity<Map<Long, Ingridients>> getAllIngridient() {
         Map<Long, Ingridients> ingridients = ingridientsService.getAllIngridient();
         if (ingridients == null) {
@@ -38,7 +44,8 @@ public class IngridientController {
         return ResponseEntity.ok(ingridients);
     }
 
-    @PutMapping("/{idIngridient}")//Изменить ингредиент
+    @PutMapping("/{idIngridient}")
+    @Operation (summary = "Изменить ингредиент", description = "Изменить ингредиент")
     public ResponseEntity<Ingridients> putIngridient(@PathVariable Long idIngridient, @RequestBody Ingridients ingridient) {
         Ingridients ingridient1 = ingridientsService.putIngridient(idIngridient, ingridient);
         if (ingridient1 == null) {
@@ -47,7 +54,8 @@ public class IngridientController {
         return ResponseEntity.ok(ingridient);
     }
 
-    @DeleteMapping("/{idIngridiet}")//Удалить ингредиент
+    @DeleteMapping("/{idIngridiet}")
+    @Operation (summary = "Удалить ингредиент", description = "Удалить ингредиент")
     public ResponseEntity<Void> deleteIngridient(@PathVariable Long idIngridient) {
         if (ingridientsService.deleteIngridient(idIngridient)) {
             return ResponseEntity.ok().build();

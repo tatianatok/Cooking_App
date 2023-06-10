@@ -1,6 +1,10 @@
 package pro.sky.cookingappnew.model;
 
+import lombok.AllArgsConstructor;
+
 public class Ingridients {
+
+
     private String titleIngridient;
     private int quantity;
     private String measurement;

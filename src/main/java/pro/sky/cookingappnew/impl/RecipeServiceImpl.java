@@ -1,5 +1,6 @@
 package pro.sky.cookingappnew.impl;
 
+import lombok.NonNull;
 import pro.sky.cookingappnew.model.Recipe;
 import pro.sky.cookingappnew.services.RecipeService;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import java.util.Map;
 @Service
 public class RecipeServiceImpl implements RecipeService {
 
+        @NonNull
         private final Map<Long, Recipe> recipes = new HashMap<>();
         private Long recipeId = 1L;
         @Override

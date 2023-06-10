@@ -13,7 +13,7 @@ public class FirstController {
 
     @GetMapping("/info")
     public String info () {
-        return "Татьяна Токманцева, CookingApp, 05.06.2023, любимые рецепты на каждый день";
+        return "Татьяна Токманцева, CookingApp, 05.06.2023, Любимые рецепты на каждый день";
     }
 
 }
