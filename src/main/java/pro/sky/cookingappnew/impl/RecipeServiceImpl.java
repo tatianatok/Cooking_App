@@ -12,7 +12,6 @@ public class RecipeServiceImpl implements RecipeService {
 
         private final Map<Long, Recipe> recipes = new HashMap<>();
         private Long recipeId = 1L;
-
         @Override
         public Recipe addNewRecipe(Recipe recipe) {
             recipes.put(recipeId, recipe);

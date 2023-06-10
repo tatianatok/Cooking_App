@@ -48,4 +48,3 @@ public class Recipe {
         this.preparation = preparation;
     }
 }
-

@@ -13,7 +13,6 @@ public class EngridientsServiceImpl implements IngridientsService {
     private final Map<Long, Ingridients> ingridient = new HashMap<>();
     private Long idIngridient = 1L;
 
-
     @Override
     public Ingridients addNewIngridient(Ingridients ingridients) {
         ingridient.put(idIngridient, ingridients);

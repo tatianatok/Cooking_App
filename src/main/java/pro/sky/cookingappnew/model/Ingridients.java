@@ -35,4 +35,3 @@ public class Ingridients {
         this.measurement = measurement;
     }
 }
-
