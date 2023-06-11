@@ -12,24 +12,24 @@ import java.util.Map;
 public class EngridientsServiceImpl implements IngridientsService {
 
     @NonNull
-    private final Map<Long, Ingridients> ingridient = new HashMap<>();
+    private final Map<Long, Ingridients> ingridientL = new HashMap<>();
     private Long idIngridient = 1L;
 
     @Override
     public Ingridients addNewIngridient(Ingridients ingridients) {
-       ingridient.put(idIngridient, ingridients);
+       ingridientL.put(idIngridient, ingridients);
        idIngridient++;
        return ingridients;
     }
 
     @Override
     public Ingridients getIngridient(Long idIngridient) {
-        return ingridient.get(idIngridient);
+        return ingridientL.get(idIngridient);
     }
 
     @Override
     public Map<Long, Ingridients> getAllIngridient() {
-        return ingridient;
+        return ingridientL;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class EngridientsServiceImpl implements IngridientsService {
 
     @Override
     public boolean deleteIngridient(Long idIngridient) {
-        return ingridient.remove(idIngridient) != null;
+        return ingridientL.remove(idIngridient) != null;
     }
 }
 

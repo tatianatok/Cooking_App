@@ -21,20 +21,20 @@ public class IngridientController {
         this.ingridientsService = ingridientsService;
     }
 
-    @GetMapping("/addnewingridient")
-    @Operation (summary = "Добавить новый ингредиент", description = "Добавить новый ингредиент")
-    public Ingridients addNewIngridient(@RequestParam Ingridients ingridient) {
+    @PostMapping
+        @Operation (summary = "Добавить новый ингредиент", description = "Добавить новый ингредиент")
+    public Ingridients addNewIngridient(@RequestBody Ingridients ingridient) {
         ingridientsService.addNewIngridient(ingridient);
         return ingridient;
     }
 
-    @GetMapping("/getingridient")
+    @GetMapping
     @Operation (summary = "Получить ингредиент по его идентификатору", description = "Получить ингредиент по его идентификатору")
     public Ingridients getIngridient(@RequestParam Long idIngridient) {
         return ingridientsService.getIngridient(idIngridient);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     @Operation (summary = "Получить все ингредиенты", description = "Получить все ингредиенты")
     public ResponseEntity<Map<Long, Ingridients>> getAllIngridient() {
         Map<Long, Ingridients> ingridients = ingridientsService.getAllIngridient();
@@ -44,7 +44,7 @@ public class IngridientController {
         return ResponseEntity.ok(ingridients);
     }
 
-    @PutMapping("/{idIngridient}")
+    @PutMapping("/idIngridient")
     @Operation (summary = "Изменить ингредиент", description = "Изменить ингредиент")
     public ResponseEntity<Ingridients> putIngridient(@PathVariable Long idIngridient, @RequestBody Ingridients ingridient) {
         Ingridients ingridient1 = ingridientsService.putIngridient(idIngridient, ingridient);
@@ -54,7 +54,7 @@ public class IngridientController {
         return ResponseEntity.ok(ingridient);
     }
 
-    @DeleteMapping("/{idIngridiet}")
+    @DeleteMapping("/idIngridiet")
     @Operation (summary = "Удалить ингредиент", description = "Удалить ингредиент")
     public ResponseEntity<Void> deleteIngridient(@PathVariable Long idIngridient) {
         if (ingridientsService.deleteIngridient(idIngridient)) {

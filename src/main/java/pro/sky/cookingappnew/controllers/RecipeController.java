@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/recipe/")
+@RequestMapping("/recipe")
 @Tag(name = "Рецепты")
 public class RecipeController {
     private final RecipeService recipeService;
@@ -19,20 +19,20 @@ public class RecipeController {
         this.recipeService = recipeService;
     }
 
-    @GetMapping("/addnewrecipe")
+    @PostMapping
     @Operation (summary = "Добавить новый рецепт", description = "Добавить новый рецепт")
-    public Recipe addNewRecipe(@RequestParam Recipe recipe) {
+    public Recipe addNewRecipe(@RequestBody Recipe recipe) {
         recipeService.addNewRecipe(recipe);
         return recipe;
     }
 
-    @GetMapping("/getrecipe")
+    @GetMapping
     @Operation (summary = "Получить рецепт по ID", description = "Получить рецепт по ID")
     public Recipe getRecipe(@RequestParam Long recipeId) {
         return recipeService.getRecipe(recipeId);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     @Operation (summary = "Получить все рецепты", description = "Получить все рецепты")
     public ResponseEntity<Map<Long, Recipe>> getAllRecipe()  {
         Map<Long, Recipe> recipe = recipeService.getAllRecipe();

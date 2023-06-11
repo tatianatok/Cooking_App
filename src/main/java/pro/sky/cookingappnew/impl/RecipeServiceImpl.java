@@ -12,23 +12,23 @@ import java.util.Map;
 public class RecipeServiceImpl implements RecipeService {
 
         @NonNull
-        private final Map<Long, Recipe> recipes = new HashMap<>();
+        private final Map<Long, Recipe> recipesL = new HashMap<>();
         private Long recipeId = 1L;
         @Override
         public Recipe addNewRecipe(Recipe recipe) {
-            recipes.put(recipeId, recipe);
+            recipesL.put(recipeId, recipe);
             recipeId++;
             return recipe;
         }
 
         @Override
         public Recipe getRecipe(Long recipeId) {
-            return recipes.get(recipeId);
+            return recipesL.get(recipeId);
         }
 
         @Override
         public Map<Long, Recipe> getAllRecipe() {
-            return recipes;
+            return recipesL;
         }
 
         @Override
@@ -38,7 +38,7 @@ public class RecipeServiceImpl implements RecipeService {
 
         @Override
         public boolean deleteRecipe(Long recipeId) {
-            return recipes.remove(recipeId) != null;
+            return recipesL.remove(recipeId) != null;
         }
 }
 
