@@ -42,4 +42,3 @@ public class EngridientsServiceImpl implements IngridientsService {
         return ingridientL.remove(idIngridient) != null;
     }
 }
-

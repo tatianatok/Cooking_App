@@ -1,7 +1,6 @@
 package pro.sky.cookingappnew.services;
 
 import pro.sky.cookingappnew.model.Ingridients;
-
 import java.util.Map;
 
 public interface IngridientsService {

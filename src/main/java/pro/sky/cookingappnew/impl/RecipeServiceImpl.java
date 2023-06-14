@@ -41,4 +41,3 @@ public class RecipeServiceImpl implements RecipeService {
             return recipesL.remove(recipeId) != null;
         }
 }
-

@@ -1,7 +1,6 @@
 package pro.sky.cookingappnew.services;
 
 import pro.sky.cookingappnew.model.Recipe;
-
 import java.util.Map;
 
 public interface RecipeService {

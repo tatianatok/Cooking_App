@@ -15,5 +15,4 @@ public class FirstController {
     public String info () {
         return "Татьяна Токманцева, CookingApp, 05.06.2023, Любимые рецепты на каждый день";
     }
-
 }
