@@ -33,7 +33,11 @@ public class RecipeServiceImpl implements RecipeService {
 
         @Override
         public Recipe putRecipe(Long recipeId, Recipe recipe) {
-            return recipe;
+            if (this.recipes.containsKey(recipeId)) {
+                this.recipes.put(recipeId, recipe);
+                return recipe;
+            }
+            return null;
         }
 
         @Override

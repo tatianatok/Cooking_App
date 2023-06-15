@@ -5,6 +5,7 @@ import pro.sky.cookingappnew.model.Ingridients;
 import pro.sky.cookingappnew.services.IngridientsService;
 import org.springframework.stereotype.Service;
 
+import java.security.Key;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +35,11 @@ public class EngridientsServiceImpl implements IngridientsService {
 
     @Override
     public Ingridients putIngridient(Long idIngridient, Ingridients ingridient) {
-        return ingridient;
+        if (this.ingridient.containsKey(idIngridient)) {
+            this.ingridient.put(idIngridient, ingridient);
+            return ingridient;
+        }
+        return null;
     }
 
     @Override
