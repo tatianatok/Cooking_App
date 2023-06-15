@@ -44,7 +44,7 @@ public class IngridientController {
         return ResponseEntity.ok(ingridients);
     }
 
-    @PutMapping("/idIngridient")
+    @PutMapping("/{idIngridient}")
     @Operation (summary = "Изменить ингредиент", description = "Изменить ингредиент")
     public ResponseEntity<Ingridients> putIngridient(@PathVariable Long idIngridient, @RequestBody Ingridients ingridient) {
         Ingridients ingridient1 = ingridientsService.putIngridient(idIngridient, ingridient);
@@ -54,7 +54,7 @@ public class IngridientController {
         return ResponseEntity.ok(ingridient);
     }
 
-    @DeleteMapping("/idIngridiet")
+    @DeleteMapping("/{idIngridiet}")
     @Operation (summary = "Удалить ингредиент", description = "Удалить ингредиент")
     public ResponseEntity<Void> deleteIngridient(@PathVariable Long idIngridient) {
         if (ingridientsService.deleteIngridient(idIngridient)) {
