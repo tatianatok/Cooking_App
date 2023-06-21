@@ -1,18 +1,16 @@
 package pro.sky.cookingappnew.impl;
 
-import lombok.NonNull;
+
 import pro.sky.cookingappnew.model.Ingridients;
 import pro.sky.cookingappnew.services.IngridientsService;
 import org.springframework.stereotype.Service;
 
-import java.security.Key;
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
 public class EngridientsServiceImpl implements IngridientsService {
 
-    @NonNull
     private final Map<Long, Ingridients> ingridient = new HashMap<>();
     private Long idIngridient = 1L;
 

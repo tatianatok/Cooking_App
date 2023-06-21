@@ -1,5 +1,9 @@
 package pro.sky.cookingappnew.model;
 
+import lombok.Data;
+
+
+@Data
 public class Ingridients {
 
     private String titleIngridient;

@@ -1,7 +1,10 @@
 package pro.sky.cookingappnew.model;
 
+import lombok.Data;
+
 import java.util.List;
 
+@Data
 public class Recipe {
 
     private String recipeTitle;
