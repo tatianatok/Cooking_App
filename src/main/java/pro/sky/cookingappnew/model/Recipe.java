@@ -18,36 +18,5 @@ public class Recipe {
         this.ingridients = ingridients;
         this.preparation = preparation;
     }
-
-    public String getRecipeTitle() {
-        return recipeTitle;
-    }
-
-    public void setRecipeTitle(String recipeTitle) {
-        this.recipeTitle = recipeTitle;
-    }
-
-    public int getTime() {
-        return time;
-    }
-
-    public void setTime(int time) {
-        this.time = time;
-    }
-
-    public List<Ingridients> getIngridients() {
-        return ingridients;
-    }
-
-    public void setIngredient(List<Ingridients> ingridients) {
-        this.ingridients = ingridients;
-    }
-
-    public List<String> getPreparation() {
-        return preparation;
-    }
-
-    public void setPreparation(List<String> preparation) {
-        this.preparation = preparation;
-    }
 }
+
