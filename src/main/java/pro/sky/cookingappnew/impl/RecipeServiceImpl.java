@@ -1,21 +1,34 @@
 package pro.sky.cookingappnew.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import pro.sky.cookingappnew.model.Recipe;
+import pro.sky.cookingappnew.services.FileService;
 import pro.sky.cookingappnew.services.RecipeService;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
+import javax.annotation.PostConstruct;
 import java.util.Map;
+import java.util.TreeMap;
 
 @Service
 public class RecipeServiceImpl implements RecipeService {
 
-        private final Map<Long, Recipe> recipes = new HashMap<>();
+        private final FileService filesService;
+
+        private Map<Long, Recipe> recipes = new TreeMap<>();
         private Long recipeId = 1L;
-        @Override
+
+    public RecipeServiceImpl(FileService filesService) {
+        this.filesService = filesService;
+    }
+
+    @Override
         public Recipe addNewRecipe(Recipe recipe) {
             recipes.putIfAbsent(recipeId, recipe);
             recipeId++;
+            saveToFile();
             return recipe;
         }
 
@@ -42,4 +55,30 @@ public class RecipeServiceImpl implements RecipeService {
         public boolean deleteRecipe(Long recipeId) {
             return recipes.remove(recipeId) != null;
         }
+
+
+        private void saveToFile(){
+            try {
+                String json = new ObjectMapper().writeValueAsString(recipes);
+                filesService.saveToFile(json);
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        private void readFromFile(){
+            String json = filesService.readFromFile();
+            try {
+                recipes = new ObjectMapper().readValue(json, new TypeReference<TreeMap<Long, Recipe>>(){
+                });
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }
+
+    @PostConstruct
+    private void init () {
+        readFromFile();
+    }
 }
