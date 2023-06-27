@@ -34,7 +34,8 @@ public class RecipeServiceImpl implements RecipeService {
 
         @Override
         public Recipe getRecipe(Long recipeId) {
-            return recipes.get(recipeId);
+            saveToFile();
+        return recipes.get(recipeId);
         }
 
         @Override
@@ -46,6 +47,7 @@ public class RecipeServiceImpl implements RecipeService {
         public Recipe putRecipe(Long recipeId, Recipe recipe) {
             if (this.recipes.containsKey(recipeId)) {
                 this.recipes.put(recipeId, recipe);
+                saveToFile();
                 return recipe;
             }
             return null;
@@ -53,7 +55,8 @@ public class RecipeServiceImpl implements RecipeService {
 
         @Override
         public boolean deleteRecipe(Long recipeId) {
-            return recipes.remove(recipeId) != null;
+            saveToFile();
+        return recipes.remove(recipeId) != null;
         }
 
 

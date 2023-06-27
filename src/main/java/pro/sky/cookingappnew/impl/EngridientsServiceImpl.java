@@ -34,6 +34,7 @@ public class EngridientsServiceImpl implements IngridientsService {
 
     @Override
     public Ingridients getIngridient(Long idIngridient) {
+        saveToFile1();
         return ingridient.get(idIngridient);
     }
 
@@ -46,6 +47,7 @@ public class EngridientsServiceImpl implements IngridientsService {
     public Ingridients putIngridient(Long idIngridient, Ingridients ingridient) {
         if (this.ingridient.containsKey(idIngridient)) {
             this.ingridient.put(idIngridient, ingridient);
+            saveToFile1();
             return ingridient;
         }
         return null;
@@ -53,6 +55,7 @@ public class EngridientsServiceImpl implements IngridientsService {
 
     @Override
     public boolean deleteIngridient(Long idIngridient) {
+        saveToFile1();
         return ingridient.remove(idIngridient) != null;
     }
 
