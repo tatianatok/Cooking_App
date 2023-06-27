@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import pro.sky.cookingappnew.services.FileService;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -89,6 +90,17 @@ public class FileServiceImpl implements FileService {
         }
         return false;
     }
+
+    @Override
+    public File getDataFile (){
+        return new File(dataFilePath + "/" + dataFileNameRecipe);
+    }
+
+    @Override
+    public File getDataFile1 (){
+        return new File(dataFilePath + "/" + dataFileNameIngridient);
+    }
+
 }
 
 
