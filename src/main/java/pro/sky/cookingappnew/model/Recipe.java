@@ -15,6 +15,4 @@ public class Recipe {
     private int time;
     private List<Ingridients> ingridients;
     private List<String> preparation;
-
 }
-

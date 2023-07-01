@@ -3,7 +3,8 @@ package pro.sky.cookingappnew.services;
 import java.io.File;
 
 public interface FileService {
-    boolean saveToFile(String json);
+
+    boolean saveToFile(String json) ;
 
     String readFromFile();
 
@@ -18,4 +19,5 @@ public interface FileService {
     File getDataFile();
 
     File getDataFile1();
+
 }
