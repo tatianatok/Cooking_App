@@ -1,6 +1,5 @@
 package pro.sky.cookingappnew.controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.InputStreamResource;
@@ -9,26 +8,23 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pro.sky.cookingappnew.model.Ingridients;
 import pro.sky.cookingappnew.model.Recipe;
-import pro.sky.cookingappnew.services.ExportRecipeService;
 import pro.sky.cookingappnew.services.FileService;
+import pro.sky.cookingappnew.services.RecipeService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
+import java.nio.charset.StandardCharsets;
 
 @RestController
 @RequestMapping("/files")
 public class FileController {
 
     private FileService fileService;
-    private ObjectMapper objectMapper;
-    private FileController exportRecipeService;
-    private final static String STORE_FILE_NAME = "recipes";
-    private Map<Integer, Recipe> recipes = new HashMap<>();
+    private RecipeService recipeService;
 
-    public FileController(FileService fileService) {
+    public FileController(FileService fileService, RecipeService recipeService) {
         this.fileService = fileService;
+        this.recipeService = recipeService;
     }
 
     @GetMapping("/exportRec")
@@ -80,8 +76,11 @@ public class FileController {
             summary = "Загружаем список рецептов в формате txt"
     )
     @GetMapping("/exportAllRecipes")
-    public void exportAllRecipes(PrintWriter writer) {
-        for (Recipe recipe : this.recipes.values()) {
+    public void exportAllRecipes(HttpServletResponse response) throws IOException {
+        response.setContentType("text/plain");
+        response.setHeader("Content-Disposition", "attachment; filename=sample.txt");
+        PrintWriter writer = new PrintWriter(new OutputStreamWriter(response.getOutputStream(), StandardCharsets.UTF_8));
+        for (Recipe recipe : recipeService.getAllRecipe().values()) {
             writer.println(recipe.getRecipeTitle());
             writer.println("Время приготовления: %d минут".formatted(recipe.getTime()));
             writer.println("Ингредиенты:");
@@ -90,12 +89,13 @@ public class FileController {
             }
             writer.println("Инструкция приготовления");
             for (int i = 0; i < recipe.getPreparation().size(); i++) {
-                writer.println("%d. %s".formatted(i+1, recipe.getPreparation().get(i)));
+                writer.println("%d. %s".formatted(i + 1, recipe.getPreparation().get(i)));
             }
             writer.println(" ");
         }
         writer.flush();
     }
+
 }
 
 
