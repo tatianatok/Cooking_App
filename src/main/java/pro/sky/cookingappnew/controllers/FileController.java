@@ -82,14 +82,14 @@ public class FileController {
         PrintWriter writer = new PrintWriter(new OutputStreamWriter(response.getOutputStream(), StandardCharsets.UTF_8));
         for (Recipe recipe : recipeService.getAllRecipe().values()) {
             writer.println(recipe.getRecipeTitle());
-            writer.println("Время приготовления: %d минут".formatted(recipe.getTime()));
+            writer.println(String.format("Время приготовления: %d минут", recipe.getTime()));
             writer.println("Ингредиенты:");
             for (Ingridients ingredients : recipe.getIngridients()) {
-                writer.println("\t%s - %d %s".formatted(ingredients.getTitleIngridient(), ingredients.getQuantity(), ingredients.getMeasurement()));
+                writer.println(String.format("\t%s - %d %s", ingredients.getTitleIngridient(), ingredients.getQuantity(), ingredients.getMeasurement()));
             }
             writer.println("Инструкция приготовления");
             for (int i = 0; i < recipe.getPreparation().size(); i++) {
-                writer.println("%d. %s".formatted(i + 1, recipe.getPreparation().get(i)));
+                writer.println(String.format("%d. %s", i + 1, recipe.getPreparation().get(i)));
             }
             writer.println(" ");
         }
