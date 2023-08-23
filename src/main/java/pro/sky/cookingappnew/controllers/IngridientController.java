@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/ingridient")
-@Tag(name = "Ингредиенты")
-
+@Tag(name = "Ингредиенты", description = "CRUD операции и другие эндпоинты для работы с ингредиентами")
+@RequestMapping("/ingredient")
 public class IngridientController {
 
     private final IngridientsService ingridientsService;
@@ -22,19 +21,30 @@ public class IngridientController {
     }
 
     @PostMapping
+    @Operation(summary = "Добавление ингредиента",
+            description = "для добавления ингредиента требуется названиие, количество и единица измерения")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "ингредиент был успешно добавлен",
+            content = {@Content(mediaType = "application/json")})})
         @Operation (summary = "Добавить новый ингредиент", description = "Добавить новый ингредиент")
     public Ingridients addNewIngridient(@RequestBody Ingridients ingridient) {
         ingridientsService.addNewIngridient(ingridient);
         return ingridient;
     }
 
-    @GetMapping
-    @Operation (summary = "Получить ингредиент по его идентификатору", description = "Получить ингредиент по его идентификатору")
+    @GetMapping("{id}")
+    @Operation(summary = "Поиск ингредиента", description = "нужно искать ингредиент по id")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "ингредиент был найден"),
+            @ApiResponse(responseCode = "400", description = "плохой запрос, отправлен некорректный запрос серверу"),
+            @ApiResponse(responseCode = "500", description = "сервер столкнулся с неожиданной ошибкой, которая помешала ему выполнить запрос")})
     public Ingridients getIngridient(@RequestParam Long idIngridient) {
         return ingridientsService.getIngridient(idIngridient);
     }
 
-    @GetMapping("/all")
+    @GetMapping
+    @Operation(summary = "Получение всех ингредиентов",
+            description = "получение списка List всех ингредиентов")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "ингредиенты были успешно получены",
+            content = {@Content(mediaType = "формат List")})})
     @Operation (summary = "Получить все ингредиенты", description = "Получить все ингредиенты")
     public ResponseEntity<Map<Long, Ingridients>> getAllIngridient() {
         Map<Long, Ingridients> ingridients = ingridientsService.getAllIngridient();
@@ -44,7 +54,12 @@ public class IngridientController {
         return ResponseEntity.ok(ingridients);
     }
 
-    @PutMapping("/{idIngridient}")
+    @PutMapping("/{id}")
+    @Operation(summary = "Редактирование ингредиента",
+            description = "можно редактировать по id как один параметр, так и несколько в том числе название, количество, единицу измерения")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "ингредиент был успешно отредактирован"),
+            @ApiResponse(responseCode = "400", description = "плохой запрос, отправлен некорректный запрос серверу"),
+            @ApiResponse(responseCode = "500", description = "сервер столкнулся с неожиданной ошибкой, которая помешала ему выполнить запрос")})
     @Operation (summary = "Изменить ингредиент", description = "Изменить ингредиент")
     public ResponseEntity<Ingridients> putIngridient(@PathVariable Long idIngridient, @RequestBody Ingridients ingridient) {
         Ingridients ingridient1 = ingridientsService.putIngridient(idIngridient, ingridient);
@@ -54,8 +69,12 @@ public class IngridientController {
         return ResponseEntity.ok(ingridient);
     }
 
-    @DeleteMapping("/{idIngridiet}")
-    @Operation (summary = "Удалить ингредиент", description = "Удалить ингредиент")
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Удаление ингредиента",
+            description = "можно удалить ингредиент только по id")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "ингредиент успешно удален"),
+            @ApiResponse(responseCode = "400", description = "плохой запрос, отправлен некорректный запрос серверу"),
+    @ApiResponse(responseCode = "500", description = "сервер столкнулся с неожиданной ошибкой, которая помешала ему выполнить запрос")})
     public ResponseEntity<Void> deleteIngridient(@PathVariable Long idIngridient) {
         if (ingridientsService.deleteIngridient(idIngridient)) {
             return ResponseEntity.ok().build();
