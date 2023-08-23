@@ -111,15 +111,3 @@ public class FileController {
     }
 
 }
-
-
-
-
-
-
-// public void exportAllRecipes(HttpServletResponse response) throws IOException {
-//        ContentDisposition disposition = ContentDisposition.attachment()
-//                .name("recipe.txt")
-//                .build();
-//        response.addHeader(HttpHeaders.CONTENT_DISPOSITION, disposition.toString());
-//        exportRecipeService.exportAllRecipes(response.getWriter());
