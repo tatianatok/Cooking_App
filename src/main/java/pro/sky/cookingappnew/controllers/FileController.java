@@ -16,6 +16,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 
 @RestController
+@Tag(name = "Файлы", description = "Операции по работе с файлами рецептов и ингредиентов")
 @RequestMapping("/files")
 public class FileController {
 
@@ -27,7 +28,11 @@ public class FileController {
         this.recipeService = recipeService;
     }
 
-    @GetMapping("/exportRec")
+   @GetMapping("download/recipes")
+    @Operation(summary = "Скачать рецепты в виде json-файла")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "файл успешно скачался"),
+            @ApiResponse(responseCode = "400", description = "плохой запрос, отправлен некорректный запрос серверу"),
+            @ApiResponse(responseCode = "500", description = "сервер столкнулся с неожиданной ошибкой, которая помешала ему выполнить запрос")})
     public ResponseEntity<InputStreamResource> downloadDataFile() throws FileNotFoundException {
         File file = fileService.getDataFile();
         if (file.exists()) {
@@ -43,6 +48,11 @@ public class FileController {
         }
     }
 
+    @GetMapping("upload/recipes")
+    @Operation(summary = "Загрузить файл с рецептами", description = "принимает json-файл с рецептами и заменяет сохраненный на жестком (локальном) диске файл на новый")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "файл успешно загружен"),
+            @ApiResponse(responseCode = "400", description = "плохой запрос, отправлен некорректный запрос серверу"),
+            @ApiResponse(responseCode = "500", description = "сервер столкнулся с неожиданной ошибкой, которая помешала ему выполнить запрос")})
     @PostMapping(value = "/importRec", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Void> uploadDataFile(@RequestParam MultipartFile file) {
         fileService.cleanDataFile();
@@ -57,6 +67,11 @@ public class FileController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
+    @GetMapping("upload/ingredients")
+    @Operation(summary = "Загрузить файл с ингредиентами", description = "принимает json-файл с ингредиентами и заменяет сохраненный на жестком (локальном) диске файл на новый")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "файл успешно загружен"),
+            @ApiResponse(responseCode = "400", description = "плохой запрос, отправлен некорректный запрос серверу"),
+            @ApiResponse(responseCode = "500", description = "сервер столкнулся с неожиданной ошибкой, которая помешала ему выполнить запрос")})
     @PostMapping(value = "/importIng", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Void> uploadDataFile1(@RequestParam MultipartFile file) {
         fileService.cleanDataFile1();
@@ -71,7 +86,6 @@ public class FileController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
-    //Получение всех рецептов из приложения
     @Operation(
             summary = "Загружаем список рецептов в формате txt"
     )
